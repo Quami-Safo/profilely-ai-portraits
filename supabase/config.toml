@@ -1,0 +1,7 @@
+project_id = "riqoqnkkcwnvcrwpneib"
+
+[functions.generate-portfolio-content]
+verify_jwt = true
+
+[functions.generate-project-description]
+verify_jwt = true
