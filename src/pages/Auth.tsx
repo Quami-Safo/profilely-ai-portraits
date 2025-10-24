@@ -12,7 +12,10 @@ import { z } from "zod";
 const authSchema = z.object({
   email: z.string().email("Please enter a valid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
-  username: z.string().min(3, "Username must be at least 3 characters").optional(),
+  username: z
+    .string()
+    .min(3, "Username must be at least 3 characters")
+    .optional(),
   fullName: z.string().min(2, "Name must be at least 2 characters").optional(),
 });
 
@@ -34,7 +37,9 @@ const Auth = () => {
       }
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
         navigate("/dashboard");
       }
@@ -62,7 +67,7 @@ const Auth = () => {
         });
 
         if (error) throw error;
-        
+
         toast({
           title: "Welcome back!",
           description: "Successfully logged in",
@@ -81,6 +86,7 @@ const Auth = () => {
         });
 
         if (error) throw error;
+        console.log(error);
 
         toast({
           title: "Account created!",
@@ -146,7 +152,7 @@ const Auth = () => {
               </div>
             </>
           )}
-          
+
           <div>
             <Label htmlFor="email">Email</Label>
             <Input
@@ -158,7 +164,7 @@ const Auth = () => {
               required
             />
           </div>
-          
+
           <div>
             <Label htmlFor="password">Password</Label>
             <Input
@@ -171,11 +177,7 @@ const Auth = () => {
             />
           </div>
 
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={loading}
-          >
+          <Button type="submit" className="w-full" disabled={loading}>
             {loading ? "Loading..." : isLogin ? "Sign In" : "Sign Up"}
           </Button>
         </form>
